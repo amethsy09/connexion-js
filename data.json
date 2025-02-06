@@ -1,0 +1,48 @@
+{
+    "etudiants": [
+      {
+        "id": 1,
+        "nom": "Diagne",
+        "prenom": "Modou",
+        "age": 30,
+        "classe": "L1dev",
+        "telephone": "773123456",
+        "classeId": "1",
+        "email": "mouhamedsy21@gmail.com",
+        "motsdepasse": "7654321",
+        "role": "etudiant"
+      },
+      {
+        "id": 2,
+        "nom": "Moulin",
+        "prenom": "Laurent",
+        "age": 25,
+        "classe": "L2gl",
+        "telephone": "774567890",
+        "classeId": "2",
+        "email": "laurentmoulin@gmail.com",
+        "motsdepasse": "1234567",
+        "role": "etudiant"
+      }
+    ],
+    "professeurs": [
+      {
+        "id": 1,
+        "nom": "Dupont",
+        "prenom": "Jean",
+        "email": "jean.dupont@gmail.com",
+        "motsdepasse": "prof1234",
+        "role": "professeur"
+      }
+    ],
+    "administrateur": [
+      {
+        "email": "admin@gmail.com",
+        "motsdepasse": "admin1234",
+        "prenom": "Admin",
+        "nom": "Super",
+        "role": "admin"
+      }
+    ]
+  }
+  
