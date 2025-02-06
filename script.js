@@ -1,95 +1,127 @@
-document.getElementById("btn-login").addEventListener("click", function (event) {
-    event.preventDefault(); // Empêche le rechargement de la page
-    login();
+document.addEventListener("DOMContentLoaded", function () {
+  security();
+  redirectrole();
+});
+
+document.getElementById("form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Empêche le rechargement de la page
+  login();
 });
 
 function login() {
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let errormsg = document.getElementById("error");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const emailError = document.getElementById("email-error");
+  const passwordError = document.getElementById("password-error");
+  const loginError = document.getElementById("login-error");
 
-    // Validation des champs
-    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  let isValid = true;
 
-    if (email === "" || password === "") {
-        errormsg.textContent = "Veuillez remplir les champs email et mot de passe.";
-        errormsg.classList.remove("hidden");
-        return;
-    }
+  // Validation de l'email
+  if (!validateEmail(emailInput.value)) {
+    emailError.textContent = "Veuillez entrer une adresse email valide.";
+    emailError.classList.remove("hidden");
+    isValid = false;
+  } else {
+    emailError.classList.add("hidden");
+  }
 
-    if (!emailPattern.test(email)) {
-        errormsg.textContent = "Veuillez entrer un email valide.";
-        errormsg.classList.remove("hidden");
-        return;
-    }
+  // Validation du mot de passe
+  if (passwordInput.value.length < 6) {
+    passwordError.textContent =
+      "Le mot de passe doit contenir au moins 8 caractères.";
+    passwordError.classList.remove("hidden");
+    isValid = false;
+  } else {
+    passwordError.classList.add("hidden");
+  }
 
-    if (password.length < 6) {
-        errormsg.textContent = "Le mot de passe doit contenir au moins 6 caractères.";
-        errormsg.classList.remove("hidden");
-        return;
-    }
+  // Si les champs ne sont pas valides, on arrête ici
+  if (!isValid) return;
 
-    errormsg.classList.add("hidden"); // Cache le message d'erreur si tout est valide
+  // Vérification des identifiants avec le fichier JSON
+  fetch("data.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors du chargement des données.");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      let utilisateurs = [
+        ...data.etudiants,
+        ...data.professeurs,
+        ...data.administrateur,
+      ];
 
-    // Vérification des identifiants
-    fetch("data.json")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Erreur lors du chargement des données.");
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Vérifie si la structure du JSON est correcte
-            if (!data.etudiants || !data.professeurs || !data.administrateur) {
-                throw new Error("Format du fichier JSON invalide.");
-            }
+      let utilisateur = utilisateurs.find(
+        (user) =>
+          user.email === emailInput.value &&
+          user.motsdepasse === passwordInput.value
+      );
 
-            let utilisateurs = [...data.etudiants, ...data.professeurs, ...data.administrateur];
+      if (utilisateur) {
+        localStorage.setItem(
+          "utilisateurConnecte",
+          JSON.stringify(utilisateur)
+        );
 
-            let utilisateur = utilisateurs.find(user => user.email === email && user.motsdepasse === password);
-
-            if (utilisateur) {
-                localStorage.setItem("utilisateurConnecte", JSON.stringify(utilisateur));
-
-                // Redirection selon le rôle de l'utilisateur
-                switch (utilisateur.role) {
-                    case "etudiant":
-                        window.location.href = "pages/etudiant.html";
-                        break;
-                    case "professeur":
-                        window.location.href = "pages/professeur.html";
-                        break;
-                    case "admin":
-                        window.location.href = "pages/administrateur.html";
-                        break;
-                    default:
-                        alert("Rôle inconnu, impossible de rediriger.");
-                }
-            } else {
-                errormsg.textContent = "Email ou mot de passe incorrect !";
-                errormsg.classList.remove("hidden");
-            }
-        })
-        .catch(error => {
-            console.error("Erreur :", error);
-            errormsg.textContent = "Problème de connexion. Veuillez réessayer.";
-            errormsg.classList.remove("hidden");
-        });
+        // Redirection selon le rôle de l'utilisateur
+        switch (utilisateur.role) {
+          case "etudiant":
+            window.location.href = "pages/etudiant.html";
+            break;
+          case "professeur":
+            window.location.href = "pages/professeur.html";
+            break;
+          case "admin":
+            window.location.href = "pages/administrateur.html";
+            break;
+          default:
+            alert("Rôle inconnu, impossible de rediriger.");
+        }
+      } else {
+        loginError.textContent = "Email ou mot de passe incorrect !";
+        loginError.classList.remove("hidden");
+      }
+    })
+    .catch((error) => {
+      console.error("Erreur :", error);
+      loginError.textContent = "Problème de connexion. Veuillez réessayer.";
+      loginError.classList.remove("hidden");
+    });
 }
 
-// Vérification de la connexion au chargement de la page
-document.addEventListener("DOMContentLoaded", function () {
-    let utilisateur = JSON.parse(localStorage.getItem("utilisateurConnecte"));
-
-    // Vérifie si l'utilisateur est connecté, sauf sur la page de connexion
-    if (!utilisateur && window.location.pathname !== "/index.html") {
-        window.location.href = "index.html";
-    }
-});
-
-// Fonction de déconnexion
+// Fonction de validation de l'email
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+// / Fonction de déconnexion
 function logout() {
-    localStorage.removeItem("utilisateurConnecte");
-    window.location.href = "../index.html"; // Redirige vers la page de connexion
+  localStorage.removeItem("utilisateurConnecte");
+  window.location.href = "../index.html";
 }
+function security() {
+  const user = JSON.parse(localStorage.getItem("utilisateurConnecte"));
+  if (!user) {
+    // Si l'utilisateur n'est pas connecté, redirige vers la page de connexion, mais évite la redirection en boucle
+    if (window.location.pathname !== "/") {
+      window.location.href = "/";
+    }
+    return;
+  }
+}
+function redirectrole() {
+    const user = JSON.parse(localStorage.getItem("utilisateurConnecte"));
+    if (user) {
+      // Vérifier si l'utilisateur est déjà sur la page appropriée
+      const currentPage = window.location.pathname.split('/').pop();
+      const targetPage = `${user.role}.html`;
+      
+      if (currentPage !== targetPage) {
+        // Redirection selon le rôle de l'utilisateur
+        window.location.href = `/pages/${targetPage}`;
+      }
+    }
+  }
+  
