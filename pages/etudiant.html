@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Étudiant</title>
+    <title>Dashboard Étudiant</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col items-center justify-center h-screen bg-green-100">
-    <h1 class="text-3xl font-bold">Bienvenue, Étudiant</h1>
-    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Déconnexion</button>
+<body class="bg-green-100 min-h-screen flex flex-col">
 
-    <script src="../script.js"></script>
+    <!-- Navbar -->
+    <nav class="bg-green-600 text-white p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Espace Étudiant</h1>
+        <button onclick="logout()" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+            Déconnexion
+        </button>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto mt-8 p-6 bg-white rounded shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-700">Mes Informations</h2>
+        <div class="mt-4 bg-gray-50 p-4 rounded">
+            <p><strong>Nom :</strong> <span id="nom"></span></p>
+            <p><strong>Prénom :</strong> <span id="prenom"></span></p>
+            <p><strong>Classe :</strong> <span id="classe"></span></p>
+            <p><strong>Email :</strong> <span id="email"></span></p>
+        </div>
+
+        <h2 class="text-2xl font-semibold text-gray-700 mt-6">Cours & Annonces</h2>
+        <div id="annonces" class="mt-4 p-4 bg-gray-50 rounded">
+            <p>Aucune annonce pour le moment.</p>
+        </div>
+    </main>
 </body>
 </html>

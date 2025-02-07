@@ -30,7 +30,7 @@
         "id": 1,
         "nom": "Dupont",
         "prenom": "Jean",
-        "email": "jean.dupont@gmail.com",
+        "email": "diouf@gmail.com",
         "motsdepasse": "prof1234",
         "role": "professeur"
       }
@@ -38,11 +38,11 @@
     "administrateur": [
       {
         "email": "admin@gmail.com",
-        "motsdepasse": "admin1234",
+        "motsdepasse": "1234567A",
         "prenom": "Admin",
         "nom": "Super",
         "role": "admin"
       }
     ]
-  }
+}
   

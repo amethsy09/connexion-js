@@ -3,12 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Professeur</title>
+    <title>Dashboard Professeur</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col items-center justify-center h-screen bg-yellow-100">
-    <h1 class="text-3xl font-bold">Bienvenue, Professeur</h1>
-    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Déconnexion</button>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Espace Professeur</h1>
+        <button onclick="logout()" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
+            Déconnexion
+        </button>
+    </nav>
+
+    <!-- Contenu principal -->
+    <main class="container mx-auto mt-8 p-6 bg-white rounded shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-700">Liste des Étudiants</h2>
+
+        <!-- Tableau des étudiants -->
+        <div class="mt-4 overflow-x-auto">
+            <table class="min-w-full border border-gray-300">
+                <thead class="bg-blue-500 text-white">
+                    <tr>
+                        <th class="py-2 px-4 border">Nom</th>
+                        <th class="py-2 px-4 border">Prénom</th>
+                        <th class="py-2 px-4 border">Classe</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <th class="py-2 px-4 border">Téléphone</th>
+                    </tr>
+                </thead>
+                <tbody id="students" class="text-center bg-gray-50">
+                    <!-- Les étudiants seront ajoutés ici via JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
 
     <script src="../script.js"></script>
 </body>
