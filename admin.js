@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", async function () {
           <td class="px-4 py-2 border">${student.email || "N/A"}</td>
           <td class="px-4 py-2 border">${student.telephone || "N/A"}</td>
            <td class="px-4 py-2 border">
-                    <button onclick="editStudent(${index})" class="text-blue-600 hover:text-blue-800">Éditer</button>
-                    <button onclick="deleteStudent(${index})" class="text-red-600 hover:text-red-800">Supprimer</button>
+                    <button onclick="editStudent(${index})" class="text-blue-600 hover:text-blue-800">⚙</button>
+                    <button onclick="deleteStudent(${index})" class="text-red-600 hover:text-red-800">🗑</button>
                 </td>
         `;
   
