@@ -63,5 +63,31 @@
       "nom": "Super",
       "role": "admin"
     }
+  ],
+  "classe": [
+    {
+      "id": 1,
+      "nom": "L1dev",
+      "niveau": "Licence 1",
+      "filiere": "Développement"
+    },
+    {
+      "id": 2,
+      "nom": "L2gl",
+      "niveau": "Licence 2",
+      "filiere": "Génie Logiciel"
+    },
+    {
+      "id": 3,
+      "nom": "L2dev",
+      "niveau": "Licence 2",
+      "filiere": "Développement"
+    },
+    {
+      "id": 4,
+      "nom": "L1gel",
+      "niveau": "Licence 1",
+      "filiere": "Génie Logiciel"
+    }
   ]
 }
