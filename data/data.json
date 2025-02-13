@@ -1,48 +1,67 @@
 {
-    "etudiants": [
-      {
-        "id": 1,
-        "nom": "Diagne",
-        "prenom": "Modou",
-        "age": 30,
-        "classe": "L1dev",
-        "telephone": "773123456",
-        "classeId": "1",
-        "email": "mouhamedsy21@gmail.com",
-        "motsdepasse": "7654321",
-        "role": "etudiant"
-      },
-      {
-        "id": 2,
-        "nom": "Moulin",
-        "prenom": "Laurent",
-        "age": 25,
-        "classe": "L2gl",
-        "telephone": "774567890",
-        "classeId": "2",
-        "email": "laurentmoulin@gmail.com",
-        "motsdepasse": "1234567",
-        "role": "etudiant"
-      }
-    ],
-    "professeurs": [
-      {
-        "id": 1,
-        "nom": "Dupont",
-        "prenom": "Jean",
-        "email": "diouf@gmail.com",
-        "motsdepasse": "prof1234",
-        "role": "professeur"
-      }
-    ],
-    "administrateur": [
-      {
-        "email": "admin@gmail.com",
-        "motsdepasse": "1234567A",
-        "prenom": "Admin",
-        "nom": "Super",
-        "role": "admin"
-      }
-    ]
+  "etudiants": [
+    {
+      "id": 1,
+      "nom": "Diagne",
+      "prenom": "Modou",
+      "age": 30,
+      "classe": "L1dev",
+      "telephone": "773123456",
+      "classeId": 1,
+      "email": "mouhamedsy21@gmail.com",
+      "motsdepasse": "7654321",
+      "role": "etudiant"
+    },
+    {
+      "id": 2,
+      "nom": "Moulin",
+      "prenom": "Laurent",
+      "age": 25,
+      "classe": "L2gl",
+      "telephone": "774567890",
+      "classeId": 2,
+      "email": "laurentmoulin@gmail.com",
+      "motsdepasse": "1234567",
+      "role": "etudiant"
+    }
+  ],
+  "professeurs": [
+    {
+      "id": 1,
+      "nom": "Dupont",
+      "prenom": "Jean",
+      "matiere": "PHP",
+      "email": "diouf@gmail.com",
+      "motsdepasse": "prof1234",
+      "role": "professeur"
+    },
+    {
+      "id": 2,
+      "nom": "Diop",
+      "prenom": "Modou",
+      "matiere": "SGBD",
+      "email": "diop@gmail.com",
+      "motsdepasse": "profE1234",
+      "role": "professeur"
+    },
+    {
+      "id": 3,
+      "nom": "Sow",
+      "prenom": "Awa",
+      "matiere": "Algorithmes",
+      "email": "sowawa@gmail.com",
+      "motsdepasse": "algoprof2025",
+      "role": "professeur"
+    }
+  ],
+  "administrateur": [
+    {
+      "id": 1,
+      "email": "admin@gmail.com",
+      "motsdepasse": "1234567A",
+      "prenom": "Admin",
+      "nom": "Super",
+      "role": "admin"
+    }
+  ]
 }
-  

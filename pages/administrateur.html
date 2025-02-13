@@ -12,13 +12,8 @@
 
     <!-- Header -->
     <header class="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md">
-        <h1 class="text-2xl font-bold">Bienvenue, Administrateur</h1>
-        <a href="#" class="text-blue-600 bg-white px-4 py-2 rounded-lg shadow-md 
-          hover:bg-gray-200 hover:shadow-lg transition-all 
-          focus:outline-none focus:ring-2 focus:ring-white">
-            Étudiants
-        </a>
-        <a href="#" class="text-blue-600 bg-white px-4 py-2 rounded-lg shadow-md 
+        <h1  class="text-2xl font-bold">Bienvenue, Administrateur</h1>
+        <a id="professorsLink" href="#" class="text-blue-600 bg-white px-4 py-2 rounded-lg shadow-md 
         hover:bg-gray-200 hover:shadow-lg transition-all 
         focus:outline-none focus:ring-2 focus:ring-white">
           professeur
@@ -35,7 +30,7 @@
     <main class="flex-grow flex justify-center items-center p-6">
         <div class="w-full max-w-5xl bg-white rounded-lg shadow-lg p-6">
             <!-- Titre -->
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Liste des étudiants</h2>
+            <h2 id="pageTitle" class="text-2xl font-semibold text-gray-800 mb-4">Liste des étudiants</h2>
 
             <!-- Tableau des étudiants -->
             <div class="overflow-x-auto rounded-lg border border-gray-300">
@@ -44,7 +39,7 @@
                         <tr>
                             <th class="px-4 py-2 border-b text-left">Nom</th>
                             <th class="px-4 py-2 border-b text-left">Prénom</th>
-                            <th class="px-4 py-2 border-b text-left">Classe</th>
+                            <th class="px-4 py-2 border-b text-left" id="ma"></th>
                             <th class="px-4 py-2 border-b text-left">Email</th>
                             <th class="px-4 py-2 border-b text-left">Téléphone</th>
                             <th class="px-4 py-2 border-b text-center">Action</th>
@@ -52,6 +47,9 @@
                     </thead>
                     <tbody id="students" class="divide-y divide-gray-300">
                         <!-- Les étudiants seront affichés ici -->
+                    </tbody>
+                    <tbody id="profs" class="divide-y divide-gray-300">
+                    <!-- les professeurs seront affichés ici -->
                     </tbody>
                 </table>
             </div>
