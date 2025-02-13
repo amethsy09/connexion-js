@@ -18,6 +18,11 @@
         focus:outline-none focus:ring-2 focus:ring-white">
           professeur
       </a>
+      <a id="classesLink" href="#" class="text-blue-600 bg-white px-4 py-2 rounded-lg shadow-md 
+      hover:bg-gray-200 hover:shadow-lg transition-all 
+      focus:outline-none focus:ring-2 focus:ring-white">
+        classes
+    </a>
 
 
         <button onclick="logout()"
@@ -38,19 +43,17 @@
                     <thead class="bg-blue-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-2 border-b text-left">Nom</th>
-                            <th class="px-4 py-2 border-b text-left">Prénom</th>
+                            <th class="px-4 py-2 border-b text-left" id="mi">Prénom</th>
                             <th class="px-4 py-2 border-b text-left" id="ma"></th>
                             <th class="px-4 py-2 border-b text-left">Email</th>
                             <th class="px-4 py-2 border-b text-left">Téléphone</th>
                             <th class="px-4 py-2 border-b text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="students" class="divide-y divide-gray-300">
+                    <tbody id="tableBody" class="divide-y divide-gray-300">
                         <!-- Les étudiants seront affichés ici -->
                     </tbody>
-                    <tbody id="profs" class="divide-y divide-gray-300">
-                    <!-- les professeurs seront affichés ici -->
-                    </tbody>
+                    
                 </table>
             </div>
         </div>

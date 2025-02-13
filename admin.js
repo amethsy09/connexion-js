@@ -2,113 +2,104 @@
 document.addEventListener("DOMContentLoaded", async function () {
   const ma = document.getElementById("ma");
   ma.textContent = "classe"
-   await fetchStudents();
+  await fetchEtudiants();
+  const mi = document.getElementById("mi");
+  mi.textContent = "prenom"
+   
 
    document.getElementById('professorsLink').addEventListener('click',async function (e) {
     e.preventDefault();
     ma.textContent = "matieres"
+    mi.textContent = "professeurs"
     await fetchProfessors();  // Charger la liste des professeurs
     document.getElementById('pageTitle').innerText = "Liste des professeurs"; // Changer le titre
+  });
+  document.getElementById('classesLink').addEventListener('click',async function (e) {
+    e.preventDefault();
+    ma.textContent = "filieres"
+    mi.textContent = "niveaux"
+    await fetchClasses();  // Charger la liste des professeurs
+    document.getElementById('pageTitle').innerText = "Liste des classes"; // Changer le titre
   });
 
   });	
 
-  async function fetchStudents() {
-    try {
-      const response = await fetch("/data/data.json");
-  
-      // Vérification du statut HTTP AVANT d'analyser la réponse JSON
-      if (!response.ok) {
-        throw new Error(`Erreur réseau (${response.status}): Impossible de récupérer les données`);
-      }
-  
-      const data = await response.json();
-  
-      if (!data.etudiants || !Array.isArray(data.etudiants)) {
-        throw new Error("Le format des données est incorrect : 'etudiants' est manquant ou n'est pas un tableau.");
-      }
-  
-      const students = data.etudiants;
-      console.log("Liste des étudiants :", students);
-  
-      const studentsList = document.getElementById("students");
-      if (!studentsList) {
-        console.error("Erreur : L'élément avec l'ID 'students' est introuvable !");
-        return;
-      }
-  
-      // Réinitialisation du contenu
-      studentsList.innerHTML = "";
-  
-      students.forEach((student, index) => {
-        const row = document.createElement("tr");
-        row.classList.add(
-          "text-center",
-          index % 2 === 0 ? "bg-gray-100" : "bg-white"
-        ); // Alternance de couleur
-  
-        row.innerHTML = `
-          <td class="px-4 py-2 border">${student.nom || "N/A"}</td>
-          <td class="px-4 py-2 border">${student.prenom || "N/A"}</td>
-          <td class="px-4 py-2 border">${student.classe || "N/A"}</td>
-          <td class="px-4 py-2 border">${student.email || "N/A"}</td>
-          <td class="px-4 py-2 border">${student.telephone || "N/A"}</td>
-           <td class="px-4 py-2 border">
-                    <button onclick="editStudent(${index})" class="text-blue-600 hover:text-blue-800">⚙</button>
-                    <button onclick="deleteStudent(${index})" class="text-red-600 hover:text-red-800">🗑</button>
-                </td>
-        `;
-  
-        studentsList.appendChild(row);
-      });
-    } catch (error) {
-      console.error("Erreur lors de la récupération des étudiants :", error);
-    }
-  }
+ // Fonction pour vider le tableau et afficher les étudiants
+async function fetchEtudiants() {
+  const response = await fetch("/data/data.json");
+  const data = await response.json();
+  const tbody = document.getElementById("tableBody");
+  const pageTitle = document.getElementById("pageTitle");
 
-// Fonction pour récupérer et afficher les professeurs
-async function fetchProfessors() {
-  try {
-    const response = await fetch("/data/data.json");  // Ajustez le chemin selon votre configuration
-    if (!response.ok) throw new Error("Erreur de chargement des professeurs");
+  tbody.innerHTML = "";
+  pageTitle.textContent = "Liste des étudiants";
 
-    const data = await response.json();
-    if (!data.professeurs || !Array.isArray(data.professeurs)) {
-      throw new Error("Le format des données est incorrect : 'professeurs' est manquant ou n'est pas un tableau.");
-    }
-    const professors = data.professeurs;
-    const studentsList = document.getElementById("profs");
-    if (!studentsList) {
-      console.error("Erreur : L'élément avec l'ID 'professeurs' est introuvable !");
-      return;
-    }
-
-    studentsList.innerHTML = "";  // Réinitialiser le contenu
-
-    professors.forEach((professor, index) => {
-      const row = document.createElement("tr");
-      row.classList.add(
-        "text-center",
-        index % 2 === 0 ? "bg-gray-100" : "bg-white"
-      );
-      professors.forEach(professor => {
-        console.log(`Nom: ${professor.nom}, Prénom: ${professor.prenom}, Matière: ${professor.matiere}`);
-      });
-      
-      row.innerHTML = `
-        <td class="px-4 py-2 border">${professor.nom || "N/A"}</td>
-        <td class="px-4 py-2 border">${professor.prenom || "N/A"}</td>
-        <td class="px-4 py-2 border">${professor.matiere || "N/A"}</td>
-        <td class="px-4 py-2 border">${professor.email || "N/A"}</td>
-        <td class="px-4 py-2 border">${professor.telephone || "N/A"}</td>
-        <td class="px-4 py-2 border text-center">
-          <button class="text-blue-600 hover:text-blue-800">⚙</button>
-          <button class="text-red-600 hover:text-red-800">🗑</button>
-        </td>
-      `;
-      studentsList.appendChild(row);
-    });
-  } catch (error) {
-    console.error("Erreur lors du chargement des professeurs : ", error);
-  }
+  data.etudiants.forEach((etudiant) => {
+    const row = `
+      <tr class="text-left">
+        <td class="px-4 py-2 border">${etudiant.nom}</td>
+        <td class="px-4 py-2 border">${etudiant.prenom}</td>
+        <td class="px-4 py-2 border">${etudiant.classe}</td>
+        <td class="px-4 py-2 border">${etudiant.email}</td>
+        <td class="px-4 py-2 border">${etudiant.telephone}</td>
+        <td class="px-4 py-2 border text-center">⚙️ 🗑️</td>
+      </tr>`;
+    tbody.innerHTML += row;
+  });
 }
+
+// Fonction pour afficher les professeurs
+async function fetchProfessors() {
+  const response = await fetch("/data/data.json");
+  const data = await response.json();
+  const tbody = document.getElementById("tableBody");
+  const pageTitle = document.getElementById("pageTitle");
+
+  tbody.innerHTML = "";
+  pageTitle.textContent = "Liste des professeurs";
+
+  data.professeurs.forEach((prof) => {
+    const row = `
+      <tr class="text-left">
+        <td class="px-4 py-2 border">${prof.nom}</td>
+        <td class="px-4 py-2 border">${prof.prenom}</td>
+        <td class="px-4 py-2 border">${prof.matiere}</td>
+        <td class="px-4 py-2 border">${prof.email}</td>
+        <td class="px-4 py-2 border">${prof.telephone || "N/A"}</td>
+        <td class="px-4 py-2 border text-center">⚙️ 🗑️</td>
+      </tr>`;
+    tbody.innerHTML += row;
+  });
+}
+
+// Fonction pour afficher les classes
+async function fetchClasses() {
+  const response = await fetch("/data/data.json");
+  const data = await response.json();
+  const tbody = document.getElementById("tableBody");
+  const pageTitle = document.getElementById("pageTitle");
+
+  tbody.innerHTML = "";
+  pageTitle.textContent = "Liste des classes";
+
+  if (!data.classe) {
+    tbody.innerHTML = `<tr><td class="text-center py-4" colspan="6">Aucune classe trouvée</td></tr>`;
+    return;
+  }
+
+  data.classe.forEach((classe) => {
+    const row = `
+      <tr class="text-left">
+        <td class="px-4 py-2 border">${classe.nom}</td>
+        <td class="px-4 py-2 border">${classe.niveau}</td>
+        <td class="px-4 py-2 border">${classe.filiere}</td>
+        <td class="px-4 py-2 border">N/A</td>
+        <td class="px-4 py-2 border">N/A</td>
+        <td class="px-4 py-2 border text-center">⚙️ 🗑️</td>
+      </tr>`;
+    tbody.innerHTML += row;
+  });
+}
+document.getElementById("professorsLink").addEventListener("click", fetchProfessors);
+document.getElementById("classesLink").addEventListener("click", fetchClasses);
+fetchEtudiants();
